@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PneumoAI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🫁 Pneumo<span>AI</span>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#analyze">Analyze</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+            Explainable AI Technology
+        </div>
+
+        <h1>
+            Explainable AI Pneumonia Detection
+        </h1>
+
+        <p>
+            Advanced AI-powered chest radiography analysis
+            using DenseNet121 and Grad-CAM visualization
+            for interpretable medical diagnosis.
+        </p>
+
+        <a href="#analyze" class="hero-btn">
+            Analyze X-Ray
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ANALYZE -->
+
+<section class="analyze-section" id="analyze">
+
+    <div class="section-title">
+
+        <span>AI ANALYSIS</span>
+
+        <h2>Pneumonia Detection System</h2>
+
+        <p>
+            Upload Chest X-Ray image for AI analysis
+        </p>
+
+    </div>
+
+    <!-- UPLOAD CARD -->
+
+    <div class="upload-card">
+
+        <div class="upload-icon">
+            🩻
+        </div>
+
+        <h3>Upload X-Ray Image</h3>
+
+        <p>
+            Supported formats: JPG, JPEG, PNG
+        </p>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <input
+                type="file"
+                name="file"
+                accept=".jpg,.jpeg,.png"
+                required
+            >
+
+            <button type="submit">
+               🔍 Analyze X-Ray
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- RESULT -->
+
+    {% if prediction %}
+
+    <div class="result-card">
+
+        <h2>Analysis Result</h2>
+
+        {% if prediction == "Pneumonia Detected" %}
+
+            <div class="result danger">
+                {{ prediction }}
+            </div>
+
+        {% else %}
+
+            <div class="result safe">
+                {{ prediction }}
+            </div>
+
+        {% endif %}
+
+        <!-- CONFIDENCE -->
+
+        {% if confidence %}
+
+        <div class="confidence-box">
+
+            <span>Confidence Score</span>
+
+            <h3>{{ confidence }}%</h3>
+
+        </div>
+        {% endif %}
+        
+        <!-- SEVERITY -->
+
+       {% if severity %}
+
+        <div class="confidence-box">
+
+            <span>Severity Level</span>
+
+            <h3 class="
+            {% if severity == 'High' %}
+                severity-high
+            {% elif severity == 'Medium' %}
+                severity-medium
+            {% elif severity == 'Low' %}
+                severity-low
+            {% else %}
+                severity-none
+            {% endif %}
+            "
+            style="
+            padding:15px 30px;
+            border-radius:20px;
+            width:fit-content;
+            margin:auto;
+            margin-top:15px;
+            font-size:2rem;
+            ">
+
+                {{ severity }}
+
+            </h3>
+
+        </div>
+
+        {% endif %}
+
+        <!-- ANALYSIS TIME -->
+
+        {% if analysis_time %}
+
+        <div class="confidence-box">
+
+            <span>Analysis Time</span>
+
+            <h3 style="font-size:1.5rem;">
+                {{ analysis_time }}
+            </h3>
+
+        </div> 
+
+        {% endif %}
+
+        <!-- PDF BUTTON -->
+
+        {% if pdf_download %}
+
+        <a href="{{ pdf_download }}"
+        class="download-btn"
+        download>
+
+        📄 Download PDF Report
+
+        </a>
+
+        {% endif %}
+
+        <!-- IMAGE GRID -->
+
+        <div class="image-grid">
+
+            <!-- ORIGINAL IMAGE -->
+
+            <div class="image-box">
+
+                <h3>Uploaded X-Ray</h3>
+
+               <img src="{{ img_path }}"
+                    class="result-image"
+                    alt="X-Ray Image">
+
+            </div>
+
+            <!-- HEATMAP -->
+
+            {% if gradcam_path %}
+
+            <div class="image-box">
+
+                <h3>Grad-CAM Heatmap</h3>
+
+              <img src="{{ gradcam_path }}"
+                    class="result-image"
+                    alt="Heatmap">
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+<!-- ABOUT -->
+
+<section class="about-section" id="about">
+
+    <div class="section-title">
+
+        <span>ABOUT SYSTEM</span>
+
+        <h2>About PneumoAI</h2>
+
+        <p>
+            Explainable Deep Learning for Chest X-Ray Analysis
+        </p>
+
+    </div>
+
+    <div class="about-grid">
+
+        <!-- CARD 1 -->
+
+        <div class="about-card">
+
+            <div class="about-icon">
+                🧠
+            </div>
+
+            <h3>DenseNet121</h3>
+
+            <p>
+                Deep Convolutional Neural Network architecture
+                optimized for accurate pneumonia classification
+                from chest radiography images.
+            </p>
+
+        </div>
+
+        <!-- CARD 2 -->
+
+        <div class="about-card">
+
+            <div class="about-icon">
+                🔥
+            </div>
+
+            <h3>Grad-CAM Visualization</h3>
+
+            <p>
+                Highlights lung regions focused by the AI model
+                during prediction process for better interpretability.
+            </p>
+
+        </div>
+
+        <!-- CARD 3 -->
+
+        <div class="about-card">
+
+            <div class="about-icon">
+                🔬
+            </div>
+
+            <h3>Explainable AI</h3>
+
+            <p>
+                Improves transparency and trustworthiness
+                of AI-assisted medical diagnosis systems.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <h3>PneumoAI</h3>
+
+    <p>
+        AI-Based Pneumonia Detection System
+    </p>
+
+</footer>
+
+</body>
+</html>

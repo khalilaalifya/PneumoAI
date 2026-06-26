@@ -1,0 +1,12 @@
+Flask
+tensorflow
+numpy
+opencv-python-headless
+matplotlib
+reportlab
+gunicorn
+Pillow
+
+git init
+git add .
+git commit -m "first commit"
