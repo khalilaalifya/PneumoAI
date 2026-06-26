@@ -626,19 +626,3 @@ val_data = train_generator.flow_from_directory(
 import os
 
 os.listdir(path)
-
-import kagglehub
-
-path = kagglehub.dataset_download(
-    "paultimothymooney/chest-xray-pneumonia"
-)
-
-print("Dataset downloaded to:", path)
-
-!pip install kagglehub
-
-!mkdir -p ~/.kaggle
-
-!echo "KGAT_3f7c1db30bd47661b19a3e27cfdd9ee6" > ~/.kaggle/access_token
-
-!chmod 600 ~/.kaggle/access_token
