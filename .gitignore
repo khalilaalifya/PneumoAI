@@ -1,4 +1,17 @@
+# Model
 pneumonia_model.h5
+
+# Python
 __pycache__/
+*.pyc
+
+# macOS
 .DS_Store
-pneumonia_model.h5
+
+# Generated files
+static/uploads/
+static/reports/
+static/heatmaps/
+
+# Virtual environment
+.venv/
